@@ -1,0 +1,146 @@
+{
+  "publication": {
+    "title": "ANGP v3.5.12: Self-Observation Fix, Complete Attack Validation, and Path to 1M TPS",
+    "version": "3.5.12",
+    "date": "2026-06-27",
+    "codename": "honest0 lives"
+  },
+  "bug_fix": {
+    "symptom": "honest0 (first node in deployment) collapsed to reputation 0.000 even without attackers",
+    "root_cause": "node.rs::get_all_reputations() iterated only over received_proposals.keys(); node never added its own proposal to received_proposals",
+    "files_modified": [
+      "src/node.rs (get_all_reputations, update_reputations, add_own_proposal)",
+      "src/main.rs (add_own_proposal call after build_proposal)"
+    ],
+    "first_observed_in_version": "v1.0",
+    "fixed_in_version": "v3.5.12"
+  },
+  "test_results": {
+    "total_test_functions": 74,
+    "total_scenarios": 127,
+    "breakdown": {
+      "unit_tests_in_src": {
+        "count": 34,
+        "files": {
+          "attack_detection.rs": 5,
+          "clock_skew.rs": 8,
+          "cross_shard.rs": 6,
+          "dag_logic.rs": 3,
+          "shard_consensus.rs": 1,
+          "sharding.rs": 6,
+          "transaction.rs": 5
+        }
+      },
+      "integration_tests": {
+        "honest_only": 1,
+        "sim_attack_resistance": 1,
+        "bft_threshold": 4,
+        "neural_dag": 6,
+        "v2_4_features": 10,
+        "v2_features": 9
+      },
+      "stress_scenarios": 39,
+      "speed_under_attack_scenarios": 14,
+      "benchmarks": 7
+    },
+    "comparison_v3511_vs_v3512": {
+      "honest_only": {
+        "v3.5.11": "9/10 honest alive (honest0 dead, rep=0.000)",
+        "v3.5.12": "10/10 honest alive (rep=0.997)"
+      },
+      "sim_attack_resistance": {
+        "v3.5.11": "9/10 honest alive",
+        "v3.5.12": "10/10 honest alive (rep=1.000)"
+      },
+      "bft_threshold": {
+        "v3.5.11": "3/4 passed (bft_test_2_adaptive_50pct FAILED)",
+        "v3.5.12": "4/4 passed"
+      },
+      "stress_limits": {
+        "v3.5.11": "39/39 scenarios, honest 9/10 (honest0 dead in all)",
+        "v3.5.12": "39/39 scenarios, honest 10/10 in all"
+      }
+    },
+    "verdict_summary": {
+      "perfect": 24,
+      "ok": 6,
+      "degraded": 9,
+      "collapse": 0
+    }
+  },
+  "performance_measurements": {
+    "signature_verification": {
+      "value": 96081,
+      "unit": "sigs/sec",
+      "hardware": "4 cores, rayon parallel",
+      "method": "ed25519-dalek batch verify"
+    },
+    "pipeline_throughput": {
+      "value": 30269,
+      "unit": "TPS",
+      "includes": "Ed25519 verify + O(1) mempool add",
+      "excludes": "Consensus, reputation, network"
+    },
+    "simulator_throughput": {
+      "value": 13108,
+      "unit": "TPS",
+      "config": "1000 nodes, 961 shards, full protocol",
+      "excludes": "TCP network, clock skew"
+    },
+    "real_tcp_throughput": {
+      "value": 130,
+      "unit": "TPS",
+      "config": "5 nodes, end-to-end",
+      "includes": "Everything + TCP gossip"
+    },
+    "path_to_1M_TPS": {
+      "current": 10078,
+      "96_core_server": 241866,
+      "with_batch_verify_nativ": 2421000,
+      "with_lock_free_mempool": 4842000,
+      "hardware_required": "1x c5.metal (96 cores, 192GB RAM)",
+      "cost_estimate": "~$3000/month"
+    }
+  },
+  "attack_taxonomy": [
+    "Coordinated",
+    "RandomNoise",
+    "GaussianNoise",
+    "FlipFlop",
+    "Sleeper",
+    "Drift",
+    "OutlierBlast",
+    "Adaptive",
+    "Clone",
+    "Sybil",
+    "Byzantine",
+    "DoubleSpend"
+  ],
+  "version_history": {
+    "v1.0": "Foundation: Hebbian DAG, reputation engine",
+    "v2.0": "Crypto DAG: DagProposal, batch finalization",
+    "v2.5": "Performance: SHA-512/256, bincode, O(1) double-spend",
+    "v3.0": "Sharding: 16 shards, cross-shard receipts",
+    "v3.2": "Security: eliminated rep>0.9 filter, attack detection",
+    "v3.3": "Honest protection: reputation floor, soft error",
+    "v3.4": "BFT hardening: cluster weight capping, jump detector",
+    "v3.5": "Hybrid consensus: shard + global anchor",
+    "v3.5.2": "Rayon parallel batch verify",
+    "v3.5.8": "Simulator for 1K nodes",
+    "v3.5.10": "Local ed25519-dalek fork with pub mod batch",
+    "v3.5.11": "AdaptiveDag pruning + prediction cache",
+    "v3.5.12": "Self-observation fix: honest0 lives"
+  },
+  "doi_predecessors": {
+    "v1": "10.5281/zenodo.20523176",
+    "v2": "10.5281/zenodo.20586893",
+    "v3": "10.5281/zenodo.20744982"
+  },
+  "reproducibility": {
+    "build_command": "cargo build --release",
+    "test_command": "cargo test --release -- --nocapture --ignored",
+    "rust_version": "1.96.0+",
+    "lines_of_code": 6000,
+    "modules": 24
+  }
+}
