@@ -1,0 +1,41 @@
+# Build artifacts
+/target/
+**/*.rs.bk
+*.pdb
+
+# IDE files
+.idea/
+.vscode/
+*.swp
+*.swo
+*~
+
+# OS files
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# Log files
+*.log
+test_results_*.log
+
+# Temporary test directories
+/stress_*/
+/sim_*/
+/honest_only*/
+
+# Environment
+.env
+.env.local
+
+# Coverage reports
+/coverage/
+*.lcov
+tarpaulin-report.html
+
+# Documentation builds
+/site/
+/book/
+
+# Zenodo upload artifacts (kept local only)
+/zenodo_uploads/
