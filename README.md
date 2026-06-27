@@ -131,12 +131,21 @@ If you use NeuroGraph in academic work, please cite v3.5.12.
 
 ```
 ┌─────────────────────────────────────────────────────────────────┐
-│                     NeuroGraph (ANGP) v3.5.12                    │
+│                     NeuroGraph (ANGP) v3.5.13                    │
 ├─────────────────────────────────────────────────────────────────┤
-│  NETWORK LAYER                                                   │
-│  ├── TCP mesh (default) or libp2p (GossipSub + Kademlia)         │
-│  ├── bincode wire format (10.5M txs/sec)                         │
-│  └── Token bucket rate limiting (500 burst, 250/sec refill)     │
+│  WALLET & IDENTITY LAYER                                         │
+│  ├── PKCS8 identity persistence (identity.pem, 0600 perms)       │
+│  ├── Ed25519 keypair management (ring → ed25519-dalek compat)   │
+│  ├── libp2p PeerId derivation (same Ed25519 seed)                │
+│  └── PoW mining for network entry (SHA-512/256, difficulty 4)   │
+├─────────────────────────────────────────────────────────────────┤
+│  LEDGER & STATE LAYER                                            │
+│  ├── Account-based state (in-memory HashMap, O(1) ops)           │
+│  ├── Transaction history (bincode serialization, 10.5M txs/sec)  │
+│  ├── Mempool (pending txs, O(1) double-spend detection)         │
+│  ├── Tx eviction (MAX_FINALIZE_RETRIES=3, prevents OOM)         │
+│  ├── Periodic flush (every 100 steps, dirty-flag optimized)      │
+│  └── Snapshot sync (SnapshotRequest/Response for bootstrapping)  │
 ├─────────────────────────────────────────────────────────────────┤
 │  CONSENSUS LAYER (3-Level Hybrid)                                │
 │  ├── Level 1: Per-node Hebbian DAG prediction                    │
@@ -144,7 +153,7 @@ If you use NeuroGraph in academic work, please cite v3.5.12.
 │  └── Level 3: Global anchor (shard digests as proposals)         │
 │  All 3 levels call identical compute_consensus() function         │
 ├─────────────────────────────────────────────────────────────────┤
-│  SECURITY LAYER (5 Detectors)                                    │
+│  SECURITY LAYER (5 Detectors + Cluster Cap)                      │
 │  ├── Clone Detector (ε=0.005, 5-step confirmation)               │
 │  ├── Coordination Detector (Union-Find, ε=0.005)                 │
 │  ├── Cluster-Aware Weight Capping (λ=0.30, ε=0.003)              │
@@ -153,22 +162,30 @@ If you use NeuroGraph in academic work, please cite v3.5.12.
 │  └── Adaptive Attacker (zone=0.15, 100-step window)              │
 ├─────────────────────────────────────────────────────────────────┤
 │  REPUTATION ENGINE (Dual-EMA + Floor)                            │
-│  ├── Fast EMA (α=0.5, ~2 steps)                                  │
-│  ├── Slow EMA (α=0.05, ~50 steps)                                │
-│  ├── Soft error (tanh, κ=0.2)                                    │
-│  ├── Reputation floor (0.3, 500-step grace)                      │
-│  └── Penalties: spike, bad-freq, changepoint, strike             │
+│  ├── Fast EMA (α=0.5, ~2 steps response)                         │
+│  ├── Slow EMA (α=0.05, ~50 steps response)                       │
+│  ├── Soft error (tanh, κ=0.2, prevents death spiral)             │
+│  ├── Reputation floor (0.3, 500-step grace period)               │
+│  └── Penalties: spike, bad-freq, changepoint, strike, violation  │
 ├─────────────────────────────────────────────────────────────────┤
 │  SHARDING (961 shards = 31²)                                     │
 │  ├── Account-based: shard(addr) = SHA-512/256(addr) mod 961      │
-│  ├── Cross-shard: LockTx → CommitTx → RefundTx (2-phase)         │
-│  └── Dynamic sizing: optimal_shards(N) = max(1, min(961, N/30))  │
+│  ├── Cross-shard: LockTx → CommitTx → RefundTx (2-phase commit)  │
+│  ├── Dynamic sizing: optimal_shards(N) = max(1, min(961, N/30))  │
+│  └── Receipt propagation (embedded in DagProposal gossip)        │
+├─────────────────────────────────────────────────────────────────┤
+│  NETWORK LAYER                                                   │
+│  ├── TCP mesh (default) or libp2p (GossipSub + Kademlia)         │
+│  ├── bincode wire format ([tag][length][body] framing)           │
+│  ├── Network batching (up to 256 txs/message)                    │
+│  ├── Token bucket rate limiting (500 burst, 250/sec refill)      │
+│  └── Conflict resolution (first-seen + min-hash tiebreak)        │
 ├─────────────────────────────────────────────────────────────────┤
 │  CRYPTO LAYER                                                    │
 │  ├── Ed25519 signatures (local ed25519-dalek fork, pub mod batch)│
-│  ├── Batch verify: 96,081 sigs/sec (rayon parallel, 4 cores)    │
-│  ├── SHA-512/256 hashing (1.57M hashes/sec)                      │
-│  └── PoW entry (SHA-512/256, difficulty 4)                       │
+│  ├── Batch verify: 96,081 sigs/sec (rayon parallel, 8 cores)    │
+│  ├── SHA-512/256 hashing (1.57M hashes/sec, 64-bit optimized)    │
+│  └── Anti-malleability (canonical hash over all fields)          │
 └─────────────────────────────────────────────────────────────────┘
 ```
 
