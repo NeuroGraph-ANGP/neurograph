@@ -114,25 +114,15 @@ cargo test --release -- --nocapture --ignored
 
 ---
 
-📖 Academic Publications
-Published Papers
+## 📖 Academic Publications
 
-    ANGP: A Decentralized Reputation-Based Consensus Protocol for Directed Acyclic Graphs
-        Author: A. Toth | Date: June 2026
-        DOI: 10.5281/zenodo.20966117
+1. ANGP: A Decentralized Reputation-Based Consensus Protocol for Directed Acyclic Graphs — [https://doi.org/10.5281/zenodo.20966117]
 
-    ANGP: Local Reputation via Self-Issued Certificates (v1)
-        Author: A. Toth | Date: June 2026
-        DOI: 10.5281/zenodo.20523176
+2. ANGP: Local Reputation via Self-Issued Certificates (v1) — [https://doi.org/10.5281/zenodo.20523176]
 
-    ANGP: Local Reputation via Self-Issued Certificates (v2, updated)
-        Author: A. Toth | Date: June 2026
-        DOI: 10.5281/zenodo.20586893
+3. ANGP: Local Reputation via Self-Issued Certificates (v2) — [https://doi.org/10.5281/zenodo.20586893]
 
-    ANGP: A Decentralized Reputation Protocol Using Adaptive Hebbian DAGs
-        Author: A. Toth | Date: June 2026
-        DOI: 10.5281/zenodo.20744982
-
+4. ANGP: A Decentralized Reputation Protocol Using Adaptive Hebbian DAGs — [https://doi.org/10.5281/zenodo.20744982]
 
 
 ---
