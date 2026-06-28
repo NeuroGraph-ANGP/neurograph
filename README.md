@@ -116,14 +116,13 @@ cargo test --release -- --nocapture --ignored
 
 ## 📖 Academic Publications
 
-1. ANGP: A Decentralized Reputation-Based Consensus Protocol for Directed Acyclic Graphs — [https://doi.org/10.5281/zenodo.20966117]
+1. ANGP: Local Reputation via Self-Issued Certificates (v1) — [https://doi.org/10.5281/zenodo.20523176]
 
-2. ANGP: Local Reputation via Self-Issued Certificates (v1) — [https://doi.org/10.5281/zenodo.20523176]
+2. ANGP: Local Reputation via Self-Issued Certificates (v2) — [https://doi.org/10.5281/zenodo.20586893]
 
-3. ANGP: Local Reputation via Self-Issued Certificates (v2) — [https://doi.org/10.5281/zenodo.20586893]
-
-4. ANGP: A Decentralized Reputation Protocol Using Adaptive Hebbian DAGs — [https://doi.org/10.5281/zenodo.20744982]
-
+3. ANGP: A Decentralized Reputation Protocol Using Adaptive Hebbian DAGs — [https://doi.org/10.5281/zenodo.20744982]
+    
+4. ANGP: A Decentralized Reputation-Based Consensus Protocol for Directed Acyclic Graphs — [https://doi.org/10.5281/zenodo.20966117]
 
 ---
 
