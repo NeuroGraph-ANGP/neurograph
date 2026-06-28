@@ -107,7 +107,7 @@ cargo test --release -- --nocapture --ignored
 
 ## 📚 Documentation
 
-- **[Whitepaper v3.5.12 (PDF, 41 pages)](docs/whitepaper.pdf)** — Complete technical specification
+- **[Whitepaper v3.5.13 (PDF, 41 pages)](docs/whitepaper.pdf)** — Complete technical specification
 - **[Test Results JSON](docs/test_results_v3512_summary.json)** — All measurements
 - **[Test Inventory](tests/tests_inventory.md)** — All 74 test functions documented
 - **[API Documentation](docs/api.md)** — Coming soon
