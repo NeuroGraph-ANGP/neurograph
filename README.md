@@ -10,7 +10,6 @@
 [![Rust](https://img.shields.io/badge/Rust-1.96+-orange.svg)](https://www.rust-lang.org)
 [![Tests: 74](https://img.shields.io/badge/Tests-127_scenarios-green.svg)](#testing)
 [![Version: v3.5.12](https://img.shields.io/badge/Version-3.5.12-blue.svg)](#version-history)
-[![DOI](https://img.shields.io/badge/DOI-10.5281/zenodo.XXXXXXX-blue.svg)](https://doi.org/10.5281/zenodo.XXXXXXX)
 
 </div>
 
