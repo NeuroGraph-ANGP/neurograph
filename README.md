@@ -107,23 +107,33 @@ cargo test --release -- --nocapture --ignored
 
 ## 📚 Documentation
 
-- **[Whitepaper v3.5.12 (PDF, 48 pages)](docs/whitepaper.pdf)** — Complete technical specification
+- **[Whitepaper v3.5.12 (PDF, 41 pages)](docs/whitepaper.pdf)** — Complete technical specification
 - **[Test Results JSON](docs/test_results_v3512_summary.json)** — All measurements
 - **[Test Inventory](tests/tests_inventory.md)** — All 74 test functions documented
 - **[API Documentation](docs/api.md)** — Coming soon
 
 ---
 
-## 📖 Academic Publications
+📖 Academic Publications
+Published Papers
 
-| Version | Date | DOI | Focus |
-|---|---|---|---|
-| v1 | 2026-06-03 | [10.5281/zenodo.20523176](https://doi.org/10.5281/zenodo.20523176) | Original concept, self-issued certificates |
-| v2 | 2026-06-08 | [10.5281/zenodo.20586893](https://doi.org/10.5281/zenodo.20586893) | 11 attack types, two-timescale EMA |
-| v3 | 2026-06-18 | [10.5281/zenodo.20744982](https://doi.org/10.5281/zenodo.20744982) | Stress tests, real-world resilience |
-| **v3.5.12** | **2026-06-27** | **[10.5281/zenodo.XXXXXXX](https://doi.org/10.5281/zenodo.XXXXXXX)** | **Self-observation fix, 127 scenarios** |
+    ANGP: A Decentralized Reputation-Based Consensus Protocol for Directed Acyclic Graphs
+        Author: A. Toth | Date: June 2026
+        DOI: 10.5281/zenodo.20966117
 
-If you use NeuroGraph in academic work, please cite v3.5.12.
+    ANGP: Local Reputation via Self-Issued Certificates (v1)
+        Author: A. Toth | Date: June 2026
+        DOI: 10.5281/zenodo.20523176
+
+    ANGP: Local Reputation via Self-Issued Certificates (v2, updated)
+        Author: A. Toth | Date: June 2026
+        DOI: 10.5281/zenodo.20586893
+
+    ANGP: A Decentralized Reputation Protocol Using Adaptive Hebbian DAGs
+        Author: A. Toth | Date: June 2026
+        DOI: 10.5281/zenodo.20744982
+
+
 
 ---
 
