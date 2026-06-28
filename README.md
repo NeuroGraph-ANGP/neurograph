@@ -34,7 +34,7 @@ Every production cryptocurrency forces designers to choose at most 2 of 3 proper
 | **Pipeline throughput** (sig + mempool) | 30,269 TPS | 8 cores |
 | **Full-protocol simulator** (1K nodes, 961 shards) | 13,108 TPS | 8 cores |
 | **Real TCP network** (5 nodes, end-to-end) | ~130 TPS | 8 cores |
-| **Projected** (96-core + batch verify + lock-free mempool) | 3,145,920 TPS | c5.metal |
+| **Projected** (96-core + batch verify + lock-free mempool) | +1.000.000 TPS | c5.metal |
 
 **All numbers are measured. No theoretical estimates (except the Projected).**
 
